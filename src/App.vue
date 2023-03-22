@@ -1,21 +1,17 @@
 <template>
   <v-app>
-    <v-container fluid>
-      <v-app-bar
-        color="orange"
-        dark
-      >
-        <v-btn outlined> Главная </v-btn>
-        <v-btn outlined> Фото </v-btn>
-      </v-app-bar>
-    </v-container>
+    <UiNavBar/>
+    <router-view/>
   </v-app>
 </template>
 
 <script>
+import UiNavBar from '@/components/UiNavBar.vue';
 
 export default {
   name: 'App',
-
+  components: {
+    UiNavBar,
+  },
 };
 </script>
