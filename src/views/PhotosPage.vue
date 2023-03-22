@@ -1,9 +1,12 @@
 <template>
   <v-container>
-    <UiPhoto
-      :key="photo.id" v-for="photo in photos"
-      :photo="photo"
-    />
+    <v-row>
+      <UiPhoto
+        v-for="item in photos"
+        :key="item.id"
+        :photo="item"
+      />
+    </v-row>
   </v-container>
 </template>
 
@@ -14,14 +17,23 @@ export default {
   components: {
     UiPhoto,
   },
+
   data: () => ({
-    photos: [
-      { id: 1, title: 'Фото 1' },
-      { id: 2, title: 'Фото 2' },
-      { id: 3, title: 'Фото 3' },
-      { id: 4, title: 'Фото 4' },
-    ],
+    photos: [],
   }),
+
+  mounted() {
+    this.fetchTodo();
+  },
+
+  methods: {
+    fetchTodo() {
+      this.axios.get('https://jsonplaceholder.typicode.com/photos?_limit=10')
+        .then((response) => {
+          this.photos = response.data;
+        });
+    },
+  },
 };
 </script>
 
