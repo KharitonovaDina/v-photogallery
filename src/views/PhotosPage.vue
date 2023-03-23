@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <UiPhotoForm @addPhoto="addNewPhoto"/>
+    <UiPhotoForm v-if="photos.length < 11" @addPhoto="addNewPhoto"/>
     <v-row>
       <UiPhoto
         v-for="item in photos"

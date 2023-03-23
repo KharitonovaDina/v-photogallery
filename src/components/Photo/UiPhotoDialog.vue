@@ -1,10 +1,10 @@
 <template>
   <v-dialog
-    v-model="value"
-    max-width="600"
+    v-model="dialogVisible"
+    max-width="688"
   >
     <v-card>
-      <v-card-title>{{ photo.title }}</v-card-title>
+      <v-card-title>{{ full_title }}</v-card-title>
       <v-card-text>
         <v-img
           :src="photo.url"
@@ -17,6 +17,7 @@
 <script>
 export default {
   name: 'UiPhotoDialog',
+
   props: {
     photo: {
       type: Object,
@@ -27,18 +28,27 @@ export default {
       default: false,
     },
   },
+
   created() {
     this.dialogVisible = this.value;
   },
+
   data: () => ({
     dialogVisible: false,
   }),
+
   watch: {
     value(newValue) {
       this.dialogVisible = newValue;
     },
     dialogVisible(newValue) {
       this.$emit('input', newValue);
+    },
+  },
+
+  computed: {
+    full_title() {
+      return `Название фотографии - ${this.photo.title}`;
     },
   },
 };
