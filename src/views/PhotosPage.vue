@@ -3,13 +3,12 @@
     <UiPhotoForm v-if="photos.length < 11" @addPhoto="addNewPhoto"/>
     <v-row>
       <UiPhoto
-        v-for="item in photos"
+        v-for="item in $store.getters.getAllPhotos"
         :key="item.id"
         :photo="item"
-        @openPhoto="openCard"
       />
     </v-row>
-    <UiPhotoDialog :photo="currentPhoto" v-model="dialogVisible"/>
+    <UiPhotoDialog/>
   </v-container>
 </template>
 
@@ -17,6 +16,7 @@
 import UiPhoto from '@/components/Photo/UiPhoto.vue';
 import UiPhotoForm from '@/components/Photo/UiPhotoForm.vue';
 import UiPhotoDialog from '@/components/Photo/UiPhotoDialog.vue';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -27,21 +27,23 @@ export default {
 
   data: () => ({
     photos: [],
-    currentPhoto: {},
-    dialogVisible: false,
+    // currentPhoto: {},
+    // dialogVisible: false,
   }),
 
   mounted() {
-    this.fetchTodo();
+    // this.fetchTodo();
+    this.fetchPhotos();
   },
 
   methods: {
-    fetchTodo() {
-      this.axios.get('https://jsonplaceholder.typicode.com/photos?_limit=10')
-        .then((response) => {
-          this.photos = response.data;
-        });
-    },
+    ...mapActions(['fetchPhotos']),
+    // fetchTodo() {
+    //   this.axios.get('https://jsonplaceholder.typicode.com/photos?_limit=10')
+    //     .then((response) => {
+    //       this.photos = response.data;
+    //     });
+    // },
 
     addNewPhoto(photo) {
       this.photos.push(photo);

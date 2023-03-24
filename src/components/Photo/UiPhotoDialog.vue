@@ -1,13 +1,14 @@
 <template>
   <v-dialog
-    v-model="dialogVisible"
+    v-model="$store.getters.getDialogVisible"
     max-width="688"
+    @click:outside="$store.commit('hideDialog')"
   >
     <v-card>
       <v-card-title>{{ full_title }}</v-card-title>
       <v-card-text>
         <v-img
-          :src="photo.url"
+          :src="$store.getters.getCurrentPhoto.url"
         />
       </v-card-text>
     </v-card>
@@ -18,37 +19,9 @@
 export default {
   name: 'UiPhotoDialog',
 
-  props: {
-    photo: {
-      type: Object,
-      required: true,
-    },
-    value: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  created() {
-    this.dialogVisible = this.value;
-  },
-
-  data: () => ({
-    dialogVisible: false,
-  }),
-
-  watch: {
-    value(newValue) {
-      this.dialogVisible = newValue;
-    },
-    dialogVisible(newValue) {
-      this.$emit('input', newValue);
-    },
-  },
-
   computed: {
     full_title() {
-      return `Название фотографии - ${this.photo.title}`;
+      return `Название фотографии - ${this.$store.getters.getCurrentPhoto.title}`;
     },
   },
 };
