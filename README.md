@@ -1,4 +1,4 @@
-# v-filmoteka
+# v-photogallery
 
 ## Project setup
 ```
